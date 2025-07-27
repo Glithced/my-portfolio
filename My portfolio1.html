@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jordi Kongolo - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #cbd5e1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #1e293b;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e293b;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #64748b;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .skill-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 5rem 2rem;
+            background: #f8fafc;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .project-info {
+            padding: 2rem;
+        }
+
+        .project-demo {
+            padding: 2rem;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.25rem 0.75rem;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Calculator */
+        .calculator {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .calc-display {
+            width: 100%;
+            height: 4rem;
+            background: #1e293b;
+            color: white;
+            text-align: right;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            font-size: 1.2rem;
+            border: none;
+        }
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calc-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calc-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .calc-btn.operator {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .calc-btn.number {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .calc-btn.equals {
+            background: #3b82f6;
+            color: white;
+            grid-row: span 2;
+        }
+
+        .calc-btn.zero {
+            grid-column: span 2;
+        }
+
+        /* Weather App */
+        .weather-app {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .weather-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            text-align: center;
+        }
+
+        .weather-btn {
+            width: 100%;
+            padding: 0.5rem;
+            background: white;
+            color: #3b82f6;
+            border: none;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .weather-display {
+            text-align: center;
+        }
+
+        .weather-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .weather-temp {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Todo App */
+        .todo-app {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .todo-input-group {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+
+        .todo-add-btn {
+            padding: 0.5rem 1rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 0 0.25rem 0.25rem 0;
+            cursor: pointer;
+        }
+
+        .todo-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .todo-checkbox {
+            margin-right: 0.5rem;
+        }
+
+        .todo-text {
+            flex: 1;
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        .todo-delete {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        /* Blog App */
+        .blog-app {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .blog-post {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+
+        .blog-excerpt {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: #1e293b;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: #334155;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #06b6d4;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            color: #64748b;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        img.profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .project-grid { grid-template-columns: 1fr; }
+            .calc-buttons { grid-template-columns: repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Jordi Kongolo</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Jordi Kongolo</h1>
+            <h2>High School Developer & Computer Science Enthusiast</h2>
+            <p>Passionate about creating innovative web applications and exploring the endless possibilities of computer science and engineering. Building the future, one line of code at a time.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Projects</a>
+                <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            </div>
+        </div>
+        <img src="https://cdn.discordapp.com/attachments/1324055286033678347/1398652737045921842/20250726_150601.jpg?ex=6886245e&is=6884d2de&hm=150a34adec749c1e8ad8dd9638f6bc3e7bfde6bcb38423e9902cd2220585c666&" alt="Jordi Kongolo" class="profile-pic">
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p class="about-text">I'm a dedicated high school student with a passion for technology and innovation. My journey in web development started with curiosity and has evolved into creating real-world applications that solve practical problems.</p>
+            
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">💻</div>
+                    <h3>Web Development</h3>
+                    <p>Proficient in HTML, CSS, JavaScript, and modern frameworks for creating responsive web applications.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎓</div>
+                    <h3>Computer Science</h3>
+                    <p>Studying algorithms, data structures, and software engineering principles with a focus on practical application.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>Engineering Mindset</h3>
+                    <p>Approaching problems with systematic thinking and innovative solutions for real-world challenges.</p>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">My Journey</h3>
+                <p>As a young developer, I've built applications ranging from simple calculators to complex school management systems. Each project has taught me valuable lessons about user experience, code quality, and the importance of solving real problems through technology.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            
+            <!-- Calculator Project -->
+            <div class="project-card">
+                <div class="project-grid">
+                    <div class="project-info">
+                        <h3 class="project-title">🧮 Scientific Calculator</h3>
+                        <p>A fully functional calculator with basic arithmetic operations, built with modern web technologies. Features a clean interface and handles complex calculations with precision.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="project-demo">
+                        <div class="calculator">
+                            <input type="text" class="calc-display" id="calcDisplay" value="0" readonly>
+                            <div class="calc-buttons">
+                                <button class="calc-btn operator" onclick="clearCalc()">C</button>
+                                <button class="calc-btn operator" onclick="deleteLast()">⌫</button>
+                                <button class="calc-btn operator" onclick="appendToCalc('/')">/</button>
+                                <button class="calc-btn operator" onclick="appendToCalc('*')">×</button>
+                                
+                                <button class="calc-btn number" onclick="appendToCalc('7')">7</button>
+                                <button class="calc-btn number" onclick="appendToCalc('8')">8</button>
+                                <button class="calc-btn number" onclick="appendToCalc('9')">9</button>
+                                <button class="calc-btn operator" onclick="appendToCalc('-')">-</button>
+                                
+                                <button class="calc-btn number" onclick="appendToCalc('4')">4</button>
+                                <button class="calc-btn number" onclick="appendToCalc('5')">5</button>
+                                <button class="calc-btn number" onclick="appendToCalc('6')">6</button>
+                                <button class="calc-btn operator" onclick="appendToCalc('+')">+</button>
+                                
+                                <button class="calc-btn number" onclick="appendToCalc('1')">1</button>
+                                <button class="calc-btn number" onclick="appendToCalc('2')">2</button>
+                                <button class="calc-btn number" onclick="appendToCalc('3')">3</button>
+                                <button class="calc-btn equals" onclick="calculateResult()" style="grid-row: span 2">=</button>
+                                
+                                <button class="calc-btn number zero" onclick="appendToCalc('0')" style="grid-column: span 2">0</button>
+                                <button class="calc-btn number" onclick="appendToCalc('.')">.</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather App Project -->
+            <div class="project-card">
+                <div class="project-grid">
+                    <div class="project-demo">
+                        <div class="weather-app">
+                            <h4 style="margin-bottom: 1rem;">Weather App</h4>
+                            <input type="text" class="weather-input" id="cityInput" placeholder="Enter city name">
+                            <button class="weather-btn" onclick="getWeather()">Get Weather</button>
+                            <div class="weather-display" id="weatherDisplay">
+                                <div class="weather-icon">☀️</div>
+                                <div class="weather-temp">22°C</div>
+                                <div>Cape Town</div>
+                                <div style="font-size: 0.875rem; opacity: 0.9;">Sunny</div>
+                                <div class="weather-details">
+                                    <div>
+                                        <div style="opacity: 0.75;">Humidity</div>
+                                        <div style="font-weight: 600;">65%</div>
+                                    </div>
+                                    <div>
+                                        <div style="opacity: 0.75;">Wind</div>
+                                        <div style="font-weight: 600;">12 km/h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">🌤️ Weather Application</h3>
+                        <p>A responsive weather app that fetches real-time weather data. Users can search for any city and get current conditions, temperature, humidity, and wind information with a beautiful interface.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">API Integration</span>
+                            <span class="tech-tag">Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Todo App Project -->
+            <div class="project-card">
+                <div class="project-grid">
+                    <div class="project-info">
+                        <h3 class="project-title">✅ Interactive To-Do List</h3>
+                        <p>A feature-rich task management application with the ability to add, edit, delete, and mark tasks as complete. Includes local storage and a clean, intuitive interface.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Local Storage</span>
+                            <span class="tech-tag">DOM Manipulation</span>
+                        </div>
+                    </div>
+                    <div class="project-demo">
+                        <div class="todo-app">
+                            <h4 style="margin-bottom: 1rem; text-align: center; color: #1e293b;">My Tasks</h4>
+                            <div class="todo-input-group">
+                                <input type="text" class="todo-input" id="todoInput" placeholder="Add a new task...">
+                                <button class="todo-add-btn" onclick="addTodo()">+</button>
+                            </div>
+                            <div class="todo-list" id="todoList">
+                                <div class="todo-item">
+                                    <input type="checkbox" class="todo-checkbox">
+                                    <span class="todo-text">Complete portfolio website</span>
+                                    <button class="todo-delete" onclick="this.parentElement.remove()">🗑️</button>
+                                </div>
+                                <div class="todo-item">
+                                    <input type="checkbox" class="todo-checkbox" checked>
+                                    <span class="todo-text completed">Study JavaScript concepts</span>
+                                    <button class="todo-delete" onclick="this.parentElement.remove()">🗑️</button>
+                                </div>
+                                <div class="todo-item">
+                                    <input type="checkbox" class="todo-checkbox">
+                                    <span class="todo-text">Apply for internships</span>
+                                    <button class="todo-delete" onclick="this.parentElement.remove()">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Website -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;">
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3 class="project-title">📝 Blog Website</h3>
+                        <p>A content management system for publishing articles and blog posts. Features include post creation, editing, categorization, and a responsive reading interface.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="blog-app" style="margin-top: 1rem;">
+                            <div style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">Featured Posts:</div>
+                            <div class="blog-post" onclick="showBlogPost(1)">
+                                <div class="blog-title">📄 Getting Started with Web Development</div>
+                                <div class="blog-excerpt">My journey into web development and the lessons learned along the way.</div>
+                            </div>
+                            <div class="blog-post" onclick="showBlogPost(2)">
+                                <div class="blog-title">📄 My Journey in Computer Science</div>
+                                <div class="blog-excerpt">Exploring the fascinating world of computer science as a student.</div>
+                            </div>
+                            <div class="blog-post" onclick="showBlogPost(3)">
+                                <div class="blog-title">📄 Tips for Young Developers</div>
+                                <div class="blog-excerpt">Practical advice for aspiring developers just starting their journey.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- School Management App -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3 class="project-title">🏫 School Management System</h3>
+                        <p>A comprehensive web application that helps teachers track school fees, manage student records, and generate reports. Includes authentication, database management, and administrative features.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Full-Stack</span>
+                            <span class="tech-tag">Database</span>
+                            <span class="tech-tag">Authentication</span>
+                        </div>
+                        <div style="background: #f8fafc; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                            <div style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem;">Key Features:</div>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="display: flex; align-items: center; font-size: 0.875rem;">
+                                    <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; margin-right: 0.5rem;"></div>
+                                    Fee tracking & payment history
+                                </div>
+                                <div style="display: flex; align-items: center; font-size: 0.875rem;">
+                                    <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; margin-right: 0.5rem;"></div>
+                                    Student record management
+                                </div>
+                                <div style="display: flex; align-items: center; font-size: 0.875rem;">
+                                    <div style="width: 8px; height: 8px; background: #8b5cf6; border-radius: 50%; margin-right: 0.5rem;"></div>
+                                    Administrative reports
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Let's Connect</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 3rem; color: #cbd5e1; max-width: 600px; margin-left: auto; margin-right: auto;">I'm always excited to discuss new opportunities, collaborate on projects, or simply connect with fellow developers and tech enthusiasts.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Phone</h3>
+                    <p style="color: #cbd5e1; margin-bottom: 1rem;">Ready to discuss opportunities</p>
+                    <a href="tel:+27832896248" style="color: #06b6d4; font-size: 1.1rem; font-weight: 600; text-decoration: none;">+27 83 289 6248</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Email</h3>
+                    <p style="color: #cbd5e1; margin-bottom: 1rem;">Drop me a line anytime</p>
+                    <a href="mailto:jordienk26@gmail.com" style="color: #06b6d4; font-weight: 600; text-decoration: none;">jordienk26@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Ready to Bring Ideas to Life</h3>
+                <p>Whether you're looking for a dedicated developer, a creative problem-solver, or someone passionate about technology, I'd love to hear from you. Let's build something amazing together!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Jordi Kongolo. Built with passion and dedication.</p>
+        <p style="margin-top: 0.5rem;">Aspiring Computer Scientist & Future Engineer</p>
+    </footer>
+
+    <script>
+        // Calculator functionality
+        let calcDisplay = document.getElementById('calcDisplay');
+        let shouldResetDisplay = false;
+
+        function appendToCalc(value) {
+            if (shouldResetDisplay) {
+                calcDisplay.value = '';
+                shouldResetDisplay = false;
+            }
+            if (calcDisplay.value === '0' && value !== '.') {
+                calcDisplay.value = value;
+            } else {
+                calcDisplay.value += value;
+            }
+        }
+
+        function clearCalc() {
+            calcDisplay.value = '0';
+        }
+
+        function deleteLast() {
+            if (calcDisplay.value.length > 1) {
+                calcDisplay.value = calcDisplay.value.slice(0, -1);
+            } else {
+                calcDisplay.value = '0';
+            }
+        }
+
+        function calculateResult() {
+            try {
+                const expression = calcDisplay.value.replace(/×/g, '*');
+                const result = eval(expression);
+                calcDisplay.value = result.toString();
+                shouldResetDisplay = true;
+            } catch (error) {
+                calcDisplay.value = 'Error';
+                shouldResetDisplay = true;
+            }
+        }
+
+        // Weather app functionality
+        const weatherData = {
+            'london': { temp: 15, condition: 'Cloudy', icon: '☁️', humidity: 78, wind: 8 },
+            'new york': { temp: 22, condition: 'Sunny', icon: '☀️', humidity: 55, wind: 12 },
+            'tokyo': { temp: 18, condition: 'Rainy', icon: '🌧️', humidity: 85, wind: 6 },
+            'cape town': { temp: 22, condition: 'Sunny', icon: '☀️', humidity: 65, wind: 12 },
+            'paris': { temp: 16, condition: 'Partly Cloudy', icon: '⛅', humidity: 70, wind: 10 }
+        };
+
+        function getWeather() {
+            const city = document.getElementById('cityInput').value.toLowerCase().trim();
+            const display = document.getElementById('weatherDisplay');
+            
+            if (weatherData[city]) {
+                const data = weatherData[city];
+                display.innerHTML = `
+                    <div class="weather-icon">${data.icon}</div>
+                    <div class="weather-temp">${data.temp}°C</div>
+                    <div>${city.charAt(0).toUpperCase() + city.slice(1)}</div>
+                    <div style="font-size: 0.875rem; opacity: 0.9;">${data.condition}</div>
+                    <div class="weather-details">
+                        <div>
+                            <div style="opacity: 0.75;">Humidity</div>
+                            <div style="font-weight: 600;">${data.humidity}%</div>
+                        </div>
+                        <div>
+                            <div style="opacity: 0.75;">Wind</div>
+                            <div style="font-weight: 600;">${data.wind} km/h</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                display.innerHTML = `
+                    <div class="weather-icon">❓</div>
+                    <div style="font-size: 1.2rem;">City not found</div>
+                    <div style="font-size: 0.75rem; opacity: 0.75;">Try: London, New York, Tokyo, Cape Town, Paris</div>
+                `;
+            }
+            document.getElementById('cityInput').value = '';
+        }
+
+        // Todo app functionality
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                const todoList = document.getElementById('todoList');
+                const todoItem = document.createElement('div');
+                todoItem.className = 'todo-item';
+                todoItem.innerHTML = `
+                    <input type="checkbox" class="todo-checkbox" onchange="toggleTodoComplete(this)">
+                    <span class="todo-text">${text}</span>
+                    <button class="todo-delete" onclick="this.parentElement.remove()">🗑️</button>
+                `;
+                todoList.appendChild(todoItem);
+                input.value = '';
+            }
+        }
+
+        function toggleTodoComplete(checkbox) {
+            const text = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                text.classList.add('completed');
+            } else {
+                text.classList.remove('completed');
+            }
+        }
+
+        // Blog functionality
+        const blogPosts = {
+            1: {
+                title: "Getting Started with Web Development",
+                content: "Web development has been an incredible journey for me. Starting with HTML and CSS, I quickly discovered the power of creating interactive experiences. JavaScript opened up a whole new world of possibilities, allowing me to build dynamic applications that respond to user input. The key to success in web development is consistent practice and staying curious about new technologies."
+            },
+            2: {
+                title: "My Journey in Computer Science", 
+                content: "Computer science is more than just coding - it's about problem-solving, logical thinking, and understanding how technology can improve people's lives. As a high school student passionate about this field, I've explored various aspects from algorithms to software engineering principles. Each project teaches me something new about efficiency, user experience, and the importance of clean, maintainable code."
+            },
+            3: {
+                title: "Tips for Young Developers",
+                content: "Starting your development journey can feel overwhelming, but here are some tips that have helped me: 1) Start with the basics and build a strong foundation, 2) Practice coding every day, even if it's just for 30 minutes, 3) Build projects that solve real problems, 4) Don't be afraid to ask questions and seek help from the community, 5) Stay updated with industry trends but focus on mastering fundamentals first."
+            }
+        };
+
+        function showBlogPost(id) {
+            const post = blogPosts[id];
+            if (post) {
+                alert(`${post.title}\n\n${post.content}`);
+            }
+        }
+
+        // Smooth scrolling for navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Allow Enter key for todo input
+            document.getElementById('todoInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTodo();
+                }
+            });
+
+            // Allow Enter key for weather input
+            document.getElementById('cityInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    getWeather();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

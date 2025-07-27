@@ -1,0 +1,34 @@
+body{
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: #accead;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+   
+}
+
+h2 {
+    text-align: center;
+    color: #55a0aa;
+}
+
+img{
+    width: 170px;
+    height: 190px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    
+}

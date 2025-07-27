@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chess Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #222;
+    }
+    .chessboard {
+      display: grid;
+      grid-template-columns: repeat(8, 60px);
+      grid-template-rows: repeat(8, 60px);
+      border: 4px solid #000;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+    .square {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      font-family: "Segoe UI Symbol", "Arial Unicode MS", sans-serif;
+      cursor: grab;
+    }
+    .white { background-color: #f0d9b5; }
+    .black { background-color: #b58863; }
+    .highlight { outline: 3px solid yellow; }
+    .check { outline: 3px solid red; }
+  </style>
+</head>
+<body>
+
+<div class="chessboard" id="board"></div>
+
+<script>
+  const board = document.getElementById("board");
+
+  const pieces = [
+    ["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"],
+    ["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", ""],
+    ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
+    ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]
+  ];
+
+  const isWhite = p => "♙♖♘♗♕♔".includes(p);
+  const isBlack = p => "♟♜♞♝♛♚".includes(p);
+  const opponent = (p, turn) => p !== "" && ((turn === "white" && isBlack(p)) || (turn === "black" && isWhite(p)));
+
+  let selected = null;
+  let currentTurn = "white";
+  let validMoves = [];
+
+  const getMoves = (p, r, c) => {
+    const moves = [];
+    const dir = currentTurn === "white" ? -1 : 1;
+    const start = currentTurn === "white" ? 6 : 1;
+
+    const inBounds = (r, c) => r >= 0 && r < 8 && c >= 0 && c < 8;
+
+    const straightMoves = [[1,0],[-1,0],[0,1],[0,-1]];
+    const diagMoves = [[1,1],[1,-1],[-1,1],[-1,-1]];
+    const knightMoves = [[2,1],[2,-1],[1,2],[1,-2],[-1,2],[-1,-2],[-2,1],[-2,-1]];
+
+    if (p === "♙" || p === "♟") {
+      if (inBounds(r+dir, c) && pieces[r+dir][c] === "") {
+        moves.push([r+dir, c]);
+        if (r === start && pieces[r+2*dir][c] === "") moves.push([r+2*dir, c]);
+      }
+      for (const dc of [-1, 1]) {
+        if (inBounds(r+dir, c+dc) && opponent(pieces[r+dir][c+dc], currentTurn)) {
+          moves.push([r+dir, c+dc]);
+        }
+      }
+    }
+
+    if (p === "♖" || p === "♜") {
+      straightMoves.forEach(([dx, dy]) => {
+        let x = r + dx, y = c + dy;
+        while (inBounds(x, y)) {
+          if (pieces[x][y] === "") {
+            moves.push([x, y]);
+          } else {
+            if (opponent(pieces[x][y], currentTurn)) moves.push([x, y]);
+            break;
+          }
+          x += dx; y += dy;
+        }
+      });
+    }
+
+    if (p === "♗" || p === "♝") {
+      diagMoves.forEach(([dx, dy]) => {
+        let x = r + dx, y = c + dy;
+        while (inBounds(x, y)) {
+          if (pieces[x][y] === "") {
+            moves.push([x, y]);
+          } else {
+            if (opponent(pieces[x][y], currentTurn)) moves.push([x, y]);
+            break;
+          }
+          x += dx; y += dy;
+        }
+      });
+    }
+
+    if (p === "♕" || p === "♛") {
+      [...straightMoves, ...diagMoves].forEach(([dx, dy]) => {
+        let x = r + dx, y = c + dy;
+        while (inBounds(x, y)) {
+          if (pieces[x][y] === "") {
+            moves.push([x, y]);
+          } else {
+            if (opponent(pieces[x][y], currentTurn)) moves.push([x, y]);
+            break;
+          }
+          x += dx; y += dy;
+        }
+      });
+    }
+
+    if (p === "♘" || p === "♞") {
+      knightMoves.forEach(([dx, dy]) => {
+        const x = r + dx, y = c + dy;
+        if (inBounds(x, y) && (!pieces[x][y] || opponent(pieces[x][y], currentTurn))) {
+          moves.push([x, y]);
+        }
+      });
+    }
+
+    if (p === "♔" || p === "♚") {
+      [...straightMoves, ...diagMoves].forEach(([dx, dy]) => {
+        const x = r + dx, y = c + dy;
+        if (inBounds(x, y) && (!pieces[x][y] || opponent(pieces[x][y], currentTurn))) {
+          moves.push([x, y]);
+        }
+      });
+    }
+
+    return moves;
+  };
+
+  const checkGameOver = () => {
+    const king = currentTurn === "white" ? "♚" : "♔";
+    let found = false;
+    for (let i = 0; i < 8; i++)
+      for (let j = 0; j < 8; j++)
+        if (pieces[i][j] === king) found = true;
+
+    if (!found) {
+      alert(`${currentTurn === "white" ? "Black" : "White"} wins!`);
+      location.reload();
+    }
+  };
+
+  const highlightMoves = () => {
+    document.querySelectorAll(".square").forEach(sq => sq.classList.remove("highlight"));
+    validMoves.forEach(([r, c]) => {
+      const sq = document.querySelector(`.square[data-pos="${r}-${c}"]`);
+      if (sq) sq.classList.add("highlight");
+    });
+  };
+
+  const renderBoard = () => {
+    board.innerHTML = "";
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const sq = document.createElement("div");
+        sq.className = `square ${(r + c) % 2 === 0 ? "white" : "black"}`;
+        sq.textContent = pieces[r][c];
+        sq.setAttribute("draggable", true);
+        sq.dataset.pos = `${r}-${c}`;
+
+        sq.addEventListener("dragstart", () => {
+          selected = { r, c, piece: pieces[r][c] };
+          validMoves = getMoves(pieces[r][c], r, c);
+          highlightMoves();
+        });
+
+        sq.addEventListener("dragover", e => e.preventDefault());
+
+        sq.addEventListener("drop", () => {
+          if (!selected) return;
+          const [sr, sc, piece] = [selected.r, selected.c, selected.piece];
+          const [dr, dc] = [r, c];
+          if (validMoves.some(([vr, vc]) => vr === dr && vc === dc)) {
+            if (pieces[dr][dc] === "♔" || pieces[dr][dc] === "♚") {
+              alert(`${currentTurn} wins!`);
+              location.reload();
+            }
+            pieces[dr][dc] = piece;
+            pieces[sr][sc] = "";
+            currentTurn = currentTurn === "white" ? "black" : "white";
+          }
+          selected = null;
+          validMoves = [];
+          renderBoard();
+        });
+
+        board.appendChild(sq);
+      }
+    }
+    highlightMoves();
+    checkGameOver();
+  };
+
+  renderBoard();
+</script>
+
+</body>
+</html>
